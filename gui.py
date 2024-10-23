@@ -227,9 +227,9 @@ def main():
     info_expander()
     calculator_expander()
 
-    # sidebar1 = st.sidebar
-    # with sidebar1:
-    #     css_btn()             
+    sidebar1 = st.sidebar
+    with sidebar1:
+        css_btn()             
            
 #%%        
 if __name__ == "__main__":
