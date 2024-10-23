@@ -14,10 +14,11 @@ system_instructions: list[str] = [
 "Your task is to analyze my BMI and TDEE and advise whether i should exercise more to losse weigh or not ",
 
 
-"You must then structure a weightlifting program that takes into consideration my BMI and TDEE",
-"Note that I only have free weights such as dumbells, barbell and a bench.I do not own any machines",
-"i want to workout 5 days of the week and 2 days for rest",
+
 ]
+# "You must then structure a weightlifting program that takes into consideration my BMI and TDEE",
+# "Note that I only have free weights such as dumbells, barbell and a bench.I do not own any machines",
+# "i want to workout 5 days of the week and 2 days for rest",
 
 class Gen_AI:
     API_KEY: str = 'AIzaSyBB7-NFo2xh4RlNH7CU4sX3a4CW2zdeHSE'

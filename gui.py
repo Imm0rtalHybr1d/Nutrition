@@ -2,12 +2,13 @@
 import streamlit as st
 from typing import Any
 import pandas as pd
-from dataclasses import dataclass, field
 from streamlit_extras.stylable_container import stylable_container 
+import genAI as genai
+
 
 #%% This function reads lines from a text file containing info on BMI, BMR, and TDEE
 def read_BMI_txt(starting_line:int, end_line:int=None) -> Any:
-    with open(fr"C:\Users\01465307\OneDrive - University of Cape Town\Desktop\Nutrition Streamlit\BMI.txt", "r") as file:
+    with open(fr"C:\Users\Hano\Desktop\Nutrition\BMI.txt", "r") as file:
         
         for i, line in enumerate(file):  
             if starting_line <= i <= end_line  :
@@ -28,8 +29,60 @@ def info_expander() -> None:
     with st.expander('TDEE'):
         st.header('What is TDEE')
         read_BMI_txt(starting_line=9, end_line=10)
- 
-    #%% Calculater Expander        
+
+def css_btn():
+    #this is a single button
+    with stylable_container(
+        key="ai_button",
+        css_styles="""
+            button {
+                position: relative;
+                background-color: LightBlue;
+                border: none;
+                font-size: 8px;
+                color: black;
+                padding: 5px;
+                width: 150px;
+                text-align: center;
+                text-decoration: none;
+                cursor: pointer;
+            }
+            """,
+    ):
+        ai_btn = st.button("Ask AI")
+        if ai_btn:
+            myai: genai = genai()
+            prompt:str =  f"""Based on user's metrics what would you suggest from a nutrional standpoint, user TDEE:{st.session_state.user_TDEE:.2F},
+                              user BMR: {st.session_state.user_BMR:.2F}, user BMI:  {st.session_state.user_BMI:.2f}  
+                            """
+                        
+            st.write(myai.Gen_AI.get_ai_response(prompt))
+
+    #this is the start of another button 
+    with stylable_container(
+        key="second_button",
+        css_styles="""
+            button {
+                    position: relative;
+                    background-color: LightBlue;
+                    border: none;
+                    font-size: 8px;
+                    color: black;
+                    padding: 5px;
+                    width: 150px;
+                    text-align: center;
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+
+        """,
+    ):
+        second_btn = st.button("Second button")
+        
+    
+
+    
+#%% Calculater Expander        
 def calculator_expander() -> None:
 
     with st.expander('Calculate your BMI',icon=':material/calculate:'):
@@ -42,8 +95,7 @@ def calculator_expander() -> None:
         with display_stats_col:
             #calls a fucntion that calculates and displays BMI, BMR based on the stats provided in the form
             calc_BMI_BMR() 
-
-
+            
 #%% Get user metrics from text_input within form
 def check_weight() -> None:
     # ensure user enters a float value for weight
@@ -155,6 +207,8 @@ def calc_BMI_BMR() -> None:
         st.markdown(f'##### BMI: {st.session_state.user_BMI}')
         st.markdown(f'##### BMR: {st.session_state.user_BMR:.2f}') 
         st.markdown(f'##### TDEE: {st.session_state.user_TDEE:.2F}') 
+
+        css_btn()
         
     except (ValueError, TypeError) as e:
         user_BMI = ''
@@ -167,42 +221,15 @@ def calc_TDEE() -> Any:
     except ValueError as e:
         st.session_state.user_TDEE = ''
 
-def css_example():
-    with stylable_container(
-        key="green_button",
-        css_styles="""
-            button {
-                background-color: blue;
-                color: white;
-                border-radius: 20px;
-            }
-            """,
-    ):
-        st.button("Green button")
-
-    st.button("Normal button")
-
-    with stylable_container(
-        key="container_with_border",
-        css_styles="""
-            {
-                border: 1px solid rgba(49, 51, 63, 0.2);
-                border-radius: 0.5rem;
-                padding: calc(1em - 1px)
-            }
-            """,
-    ):
-        st.markdown("This is a container with a border.")
-        
+      
 def main():
     
-    blah = st.sidebar
-    with blah:
-        css_example()
-        
     info_expander()
     calculator_expander()
-                 
+
+    # sidebar1 = st.sidebar
+    # with sidebar1:
+    #     css_btn()             
            
 #%%        
 if __name__ == "__main__":
