@@ -73,7 +73,13 @@ def css_btn():
                     text-align: center;
                     text-decoration: none;
                     cursor: pointer;
+                    transition: 0.5s ease-in-out;
                 }
+            button:hover{
+                    transition: 0.5s;
+                    transform: scale(1.05);
+                    box-shadow: 1px 2px 12px white;
+            }    
 
         """,
     ):
