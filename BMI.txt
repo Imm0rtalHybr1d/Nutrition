@@ -1,0 +1,11 @@
+Body Mass Index. 
+It is a measure that uses a person's height and weight to estimate whether they have a healthy body weight for their height.
+BMI is commonly used as a screening tool to categorize individuals into weight categories such as underweight, normal weight, overweight, and obese.
+The BMI calculator can help you determine the BMI of a person 
+
+Basal Metabolic Rate.
+BMR is the minimum number of calories your body needs to function while you're resting. It's the energy required to maintain basic life functions like breathing, digestion, and blood flow. 
+BMR accounts for 60 to 70% of the energy your body uses.Your basal metabolic rate (BMR) is the number of calories your body needs to accomplish its most basic (basal) life-sustaining functions.
+
+TDEE stands for Total Daily Energy Expenditure. 
+It represents the total number of calories that your body burns in a day through various activities.This include basal metabolic rate (BMR), physical activity, and the thermic effect of food (calories burned during digestion).an estimation of how many calories you burn per day when exercise is taken into account. 
