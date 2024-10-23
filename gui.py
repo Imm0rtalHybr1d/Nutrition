@@ -3,7 +3,7 @@ import streamlit as st
 from typing import Any
 import pandas as pd
 from streamlit_extras.stylable_container import stylable_container 
-import genAI as genai
+# import genAI as genai
 
 
 #%% This function reads lines from a text file containing info on BMI, BMR, and TDEE
