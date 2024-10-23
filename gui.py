@@ -5,6 +5,8 @@ import pandas as pd
 from streamlit_extras.stylable_container import stylable_container 
 import genAI as genai
 
+myai: genai = genai.Gen_AI()
+
 
 #%% This function reads lines from a text file containing info on BMI, BMR, and TDEE
 def read_BMI_txt(starting_line:int, end_line:int=None) -> Any:
@@ -49,37 +51,9 @@ def css_btn():
             }
             """,
     ):
-        ai_btn = st.button("Ask AI")
-        if ai_btn:
-            myai: genai = genai()
-            prompt:str =  f"""Based on user's metrics what would you suggest from a nutrional standpoint, user TDEE:{st.session_state.user_TDEE:.2F},
-                              user BMR: {st.session_state.user_BMR:.2F}, user BMI:  {st.session_state.user_BMI:.2f}  
-                            """
-                        
-            st.write(myai.Gen_AI.get_ai_response(prompt))
-
-    #this is the start of another button 
-    with stylable_container(
-        key="second_button",
-        css_styles="""
-            button {
-                    position: relative;
-                    background-color: LightBlue;
-                    border: none;
-                    font-size: 8px;
-                    color: black;
-                    padding: 5px;
-                    width: 150px;
-                    text-align: center;
-                    text-decoration: none;
-                    cursor: pointer;
-                }
-
-        """,
-    ):
-        second_btn = st.button("Second button")
+        ai_btn = st.button("Ask AI", key='ai_btn',type='secondary')
         
-    
+        
 
     
 #%% Calculater Expander        
@@ -184,7 +158,6 @@ def user_data_form() -> None:
                 st.write('')
 #%% BMI calculation             
 def calc_BMI_BMR() -> None:
-    
     try:
         #get BMI
         user_BMI: float = st.session_state.user_weight / (st.session_state.user_height_in_CM/100) ** 2       
@@ -200,18 +173,21 @@ def calc_BMI_BMR() -> None:
         
         #get TDEE
         calc_TDEE()
+        display_user_stats()
+
         
-        #display user stats
+        css_btn()
+        
+    except (ValueError, TypeError) as e:
+        user_BMI = ''
+        
+def display_user_stats() -> None:
+    #display user stats
         st.subheader(f'Your Stats:')
         st.markdown('#### =========================')  
         st.markdown(f'##### BMI: {st.session_state.user_BMI}')
         st.markdown(f'##### BMR: {st.session_state.user_BMR:.2f}') 
         st.markdown(f'##### TDEE: {st.session_state.user_TDEE:.2F}') 
-
-        css_btn()
-        
-    except (ValueError, TypeError) as e:
-        user_BMI = ''
      
 def calc_TDEE() -> Any:
     try:
