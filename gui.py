@@ -8,7 +8,7 @@ from streamlit_extras.stylable_container import stylable_container
 
 #%% This function reads lines from a text file containing info on BMI, BMR, and TDEE
 def read_BMI_txt(starting_line:int, end_line:int=None) -> Any:
-    with open(fr"C:\Users\Hano\Desktop\Nutrition\BMI.txt", "r") as file:
+    with open(fr"BMI.txt", "r") as file:
         
         for i, line in enumerate(file):  
             if starting_line <= i <= end_line  :
@@ -227,9 +227,9 @@ def main():
     info_expander()
     calculator_expander()
 
-    # sidebar1 = st.sidebar
-    # with sidebar1:
-    #     css_btn()             
+    sidebar1 = st.sidebar
+    with sidebar1:
+        css_btn()             
            
 #%%        
 if __name__ == "__main__":
