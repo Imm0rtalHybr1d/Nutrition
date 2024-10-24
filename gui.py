@@ -19,20 +19,19 @@ def read_BMI_txt(starting_line:int, end_line:int=None) -> Any:
 
 #%% Info expander
 def info_expander() -> None:
-    test1, test2  = st.columns([4,4])
-    with test1:
+    left_drop_down, right_drop_down  = st.columns([4,4])
+    with left_drop_down:
         with st.expander('BMI',expanded=True, icon=':material/health_metrics:'):
             st.header('What is BMI')
             read_BMI_txt(starting_line=0, end_line=4)
-    with test2:        
+    with right_drop_down:        
         with st.expander('BMR',expanded=True,icon=':material/outpatient_med:'):
             st.header('What is BMR')
             read_BMI_txt(starting_line=5, end_line=8)
     with st.expander('TDEE'):
         st.header('What is TDEE')
         read_BMI_txt(starting_line=9, end_line=10)
-
-      
+        
     
 #%% Calculater Expander        
 def calculator_expander() -> None:
@@ -87,7 +86,6 @@ def user_data_form() -> None:
        """,
     ): st.form_submit_button('Submit')
         
-        
 #%% BMI calculation             
 def calc_BMI_BMR() -> None:
     try:
@@ -110,23 +108,19 @@ def calc_BMI_BMR() -> None:
         
     except (ValueError, TypeError) as e:
         user_BMI = ''
-
      
 def calc_TDEE() -> Any:
     try:
         #get TDEE
         st.session_state.user_TDEE = float(st.session_state.user_BMR * st.session_state.activity_level)
-        
     except ValueError as e:
         st.session_state.user_TDEE = ''
-
       
 def main():
     info_expander()
     calculator_expander()
 
                
-           
 #%%        
 if __name__ == "__main__":
     main()
