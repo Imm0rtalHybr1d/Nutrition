@@ -3,7 +3,7 @@ import google.generativeai as genai
 
 system_instructions: list[str] = [
     
-    "You are a nutritionist and a personal trainer.",
+"You are a nutritionist and a personal trainer.",
 "Do not deviate from this task.if my prompt does not relate to nutrition or fitness , please advise me to only promote about nutrition or fitness",
 
 "example."
@@ -12,9 +12,6 @@ system_instructions: list[str] = [
 
 "My main goal is to loose weight,",
 "Your task is to analyze my BMI and TDEE and advise whether i should exercise more to losse weigh or not ",
-
-
-
 ]
 # "You must then structure a weightlifting program that takes into consideration my BMI and TDEE",
 # "Note that I only have free weights such as dumbells, barbell and a bench.I do not own any machines",
@@ -34,7 +31,7 @@ class Gen_AI:
     
 def main():
     myai: Gen_AI = Gen_AI()
-    ai_response: str = myai.get_ai_response(prompt='whats the nutrition value of blueberries?')
+    ai_response: str = myai.get_ai_response(prompt='dfdftion value of blueberries?')
     
     print(ai_response)
     
