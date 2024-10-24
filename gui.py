@@ -3,8 +3,7 @@ import streamlit as st
 from typing import Any
 import pandas as pd
 from streamlit_extras.stylable_container import stylable_container 
-import genAI as genai
-
+from genAI import Gen_AI
 
 #%% This function reads lines from a text file containing info on BMI, BMR, and TDEE
 def read_BMI_txt(starting_line:int, end_line:int=None) -> Any:
@@ -31,58 +30,47 @@ def info_expander() -> None:
         read_BMI_txt(starting_line=9, end_line=10)
 
 def css_btn():
-    #this is a single button
-    with stylable_container(
-        key="ai_button",
+    # this funtion defines the style of the AI button 
+    #with stylable allows us to use CSS to style certain elements, in this case its a button called ai_btn
+    with stylable_container( key="button_styling",
         css_styles="""
             button {
-                position: relative;
-                background-color: LightBlue;
                 border: none;
-                font-size: 8px;
-                color: black;
-                padding: 5px;
-                width: 150px;
+                color: white;
+                padding: 16px 32px;
                 text-align: center;
                 text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                transition-duration: 0.4s;
                 cursor: pointer;
             }
-            """,
-    ):
-        ai_btn = st.button("Ask AI")
-        if ai_btn:
-            myai: genai = genai()
-            prompt:str =  f"""Based on user's metrics what would you suggest from a nutrional standpoint, user TDEE:{st.session_state.user_TDEE:.2F},
-                              user BMR: {st.session_state.user_BMR:.2F}, user BMI:  {st.session_state.user_BMI:.2f}  
-                            """
-                        
-            st.write(myai.Gen_AI.get_ai_response(prompt))
 
-    #this is the start of another button 
-    with stylable_container(
-        key="second_button",
-        css_styles="""
             button {
-                    position: relative;
-                    background-color: LightBlue;
-                    border: none;
-                    font-size: 8px;
-                    color: black;
-                    padding: 5px;
-                    width: 150px;
-                    text-align: center;
-                    text-decoration: none;
-                    cursor: pointer;
-                }
+                background-color: white; 
+                color: black; 
+                border: 2px solid #04AA6D;
+            }
 
-        """,
+            button:hover {
+                background-color: #C45A6D;
+                color: white;
+            }
+       """,
     ):
-        second_btn = st.button("Second button")
         
-    
+        ai_btn = st.button("Ask AI", key='ai_btn',type='secondary')
+        if ai_btn:
+            myai: Gen_AI = Gen_AI()
+            
+            st.write(myai.get_ai_response(prompt='if someones BMI is 26.3, their BMR is 1564.45 and their TDEE is 2424.89, what can you advise if this persons gaol is to lose weight'))
+            st.write('AI button has been clicked ')
+        
 
     
 #%% Calculater Expander        
+# 
 def calculator_expander() -> None:
 
     with st.expander('Calculate your BMI',icon=':material/calculate:'):
@@ -184,7 +172,6 @@ def user_data_form() -> None:
                 st.write('')
 #%% BMI calculation             
 def calc_BMI_BMR() -> None:
-    
     try:
         #get BMI
         user_BMI: float = st.session_state.user_weight / (st.session_state.user_height_in_CM/100) ** 2       
@@ -200,18 +187,19 @@ def calc_BMI_BMR() -> None:
         
         #get TDEE
         calc_TDEE()
+        display_user_stats()
         
-        #display user stats
+        
+    except (ValueError, TypeError) as e:
+        user_BMI = ''
+        
+def display_user_stats() -> None:
+    #display user stats
         st.subheader(f'Your Stats:')
         st.markdown('#### =========================')  
         st.markdown(f'##### BMI: {st.session_state.user_BMI}')
         st.markdown(f'##### BMR: {st.session_state.user_BMR:.2f}') 
         st.markdown(f'##### TDEE: {st.session_state.user_TDEE:.2F}') 
-
-        css_btn()
-        
-    except (ValueError, TypeError) as e:
-        user_BMI = ''
      
 def calc_TDEE() -> Any:
     try:

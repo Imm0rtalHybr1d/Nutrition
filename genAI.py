@@ -28,19 +28,17 @@ class Gen_AI:
                               generation_config=genai.GenerationConfig(temperature=0.5,))
         
     def get_ai_response(self, prompt:str) -> str:
-        try:
-            ai_response = self.model.generate_content(prompt)
-        except Exception as e:
-            print(e)
+       
+        ai_response = self.model.generate_content(prompt)
         return ai_response.text
     
-# def main():
-#     myai: Gen_AI = Gen_AI()
-#     ai_response: str = myai.get_ai_response(prompt='whats the nutrition value of blueberries?')
+def main():
+    myai: Gen_AI = Gen_AI()
+    ai_response: str = myai.get_ai_response(prompt='whats the nutrition value of blueberries?')
     
-#     print(ai_response)
+    print(ai_response)
     
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
  
 # %%
