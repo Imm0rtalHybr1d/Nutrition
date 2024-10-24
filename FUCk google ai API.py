@@ -18,7 +18,7 @@ system_instructions: list[str] = [
 # "i want to workout 5 days of the week and 2 days for rest",
 
 class Gen_AI:
-    API_KEY: str = 'AIzaSyBB7-NFo2xh4RlNH7CU4sX3a4CW2zdeHSE'
+    API_KEY: str = 'AIzaSyBB7-'
     def __init__(self ) -> str:
         genai.configure(api_key=self.API_KEY)
         self.model = genai.GenerativeModel('gemini-1.5-pro-latest', system_instruction=system_instructions,

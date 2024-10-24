@@ -10,7 +10,6 @@ class User_data:
             user_weight:float = float(st.text_input(label='Enter your weight in kg:'))
             st.session_state.user_weight  = user_weight
             return  True
-            
         except Exception as e:
             st.session_state.user_weight  = '' 
             
@@ -18,7 +17,6 @@ class User_data:
         try:
             user_height:float = float(st.text_input(label='Enter your height in cm:'))
             st.session_state.user_height_in_CM = user_height
-            
         except Exception as e:
             st.session_state.user_height_in_CM = ''        
       
@@ -26,7 +24,6 @@ class User_data:
         try:
             check_age:float = float(st.text_input(label='Enter your Age:'))
             st.session_state.user_age = check_age
-            
         except Exception as e:
             st.session_state.user_age = ''        
        
