@@ -2,14 +2,23 @@
 import streamlit as st
 from typing import Any
 import pandas as pd
-from streamlit_extras.stylable_container import stylable_container 
-from get_user_metrics import User_data
-from calculations import Calculations
-#%% Initializations
-mycalc: Calculations = Calculations()
 
-#%% Initializing userdata class
+from get_user_metrics import User_data
+from calculations import Calc
+import pathlib
+
+#%% Initializations
+mycalc: Calc = Calc()
 u_data:User_data = User_data()
+
+
+#%% Load CSS from the assets folder
+def load_css(filepath:str) -> None:
+    with open(filepath) as f:
+        st.html(f'<style>{f.read()}</style>')
+        
+css_path = pathlib.Path('assets/style.css')
+load_css(css_path)
 
 #%% This function reads lines from a text file containing info on BMI, BMR, and TDEE
 def read_BMI_txt(starting_line:int, end_line:int=None) -> Any:
@@ -59,41 +68,17 @@ def user_data_form() -> None:
         u_data.check_gender()        
         u_data.check_activity_level()
         
-        # Submit button
-        # use the form data to determine BMI and TDEE and then display it  once submit button is clicked
-        with stylable_container( key="button_styling",
-        css_styles="""
-            button {
-                border: none;
-                color: white;
-                padding: 16px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                transition-duration: 0.4s;
-                cursor: pointer;
-            }
-
-            button {
-                background-color: white; 
-                color: black; 
-                border: 2px solid #04AA6D;
-            }
-
-            button:hover {
-                background-color: #5b92eb;
-                color: white;
-            }
-       """,
-    ): st.form_submit_button('Submit')
+        st.form_submit_button('Submit')
         
   
 def main():
     info_expander()
     calculator_expander()
 
+    blah = st.sidebar
+    with blah:
+        test = st.button('Testing', key='test_btn')
+        test2 = st.button('Second Button', key='test2_btn')
 #%%        
 if __name__ == "__main__":
     main()
