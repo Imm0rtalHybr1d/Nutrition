@@ -1,16 +1,13 @@
-import gui
+
 import streamlit as st
+from get_user_metrics import User_data 
 
 
-
-
-class Calculations:
+udata: User_data = User_data()
+class Calc:
     def __init__(self):
         pass
-    
-    
              
-    
     def calc_BMI_BMR(self) -> None:
         try:
             #get BMI
@@ -32,7 +29,7 @@ class Calculations:
             except ValueError as e:
                 st.session_state.user_TDEE = ''   
                 
-            gui.u_data.display_user_stats()
+            udata.display_user_stats()
         except (ValueError, TypeError) as e:
             user_BMI = ''
             
