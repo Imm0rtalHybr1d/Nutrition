@@ -10,7 +10,11 @@ import pathlib
 #-- Load CSS from the assets folder
 def load_css(filepath:str) -> None:
     with open(filepath) as f:
+        
+        #-- declares a button , then gets styled in assets.css
         st.html('<button class="btn">Button</button>')
+        st.html('<button class="btn2">Button</button>')
+        
         st.html(f'<style>{f.read()}</style>')
 css_path = pathlib.Path('assets/style.css')
 load_css(css_path)
