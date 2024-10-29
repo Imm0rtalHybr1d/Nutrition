@@ -65,7 +65,19 @@ class Calc:
                 st.session_state.activity_level = 1.9  
         except Exception as e:
             st.session_state.activity_level = ''  
-    
+
+    def check_goal(self) -> None:
+        try:        
+            user_goal:str = st.selectbox('Goal', ['Weight loss', 'Weight gain'])        
+            
+            if user_goal.lower() == 'Weight loss' or user_goal.lower() == 'Weight gain':
+                st.session_state.user_gender = 'Weight loss'
+                     
+            else:
+                st.session_state.user_goal = ''
+        except Exception :
+            st.session_state.user_goal = ''  
+            
     def calc_BMI(self) -> None:
         try:
             # -- Get BMI
@@ -94,7 +106,8 @@ class Calc:
             
         except ValueError :
             st.session_state.user_TDEE = ' ' 
-          
+
+#-- This function creates and promts user for data, this data is then stored in the session state          
 def user_data_form() -> bool:
     user_metrics_form = st.form(key='User Metrics Form', clear_on_submit=False)
     
@@ -107,6 +120,7 @@ def user_data_form() -> bool:
         mycalc.check_age()        
         mycalc.check_gender()        
         mycalc.check_activity_level()
+        mycalc.check_goal()
         
         #-- If submit button is clicked then try calculating BMI,BMR and TDEE    
         submit_btn = st.form_submit_button(label='Submit')
@@ -123,6 +137,7 @@ def user_data_form() -> bool:
                 st.success(body='Data submitted')
                 return True
 
+#-- This function displays the form on the left and the insights/stats on the right side
 def display_sections() -> None:                
     expander = st.expander(label='Calcualte your BMI, BMR & TDEE', expanded=True )
     with expander:
@@ -160,12 +175,9 @@ def display_sections() -> None:
                 with st.container(border=True):
                     st.markdown('#### Insights')
                     st.markdown('*----------------------------------------------------------*')
-                    st.markdown(f'###### BMI: {st.session_state.user_BMI}')
-                    st.markdown(f'###### BMR (Basal Metabolic Rate): {round(st.session_state.user_BMR)}')
-                    st.markdown(f'###### TDEE (Total Daily Energy Expenditure): {round(st.session_state.user_TDEE)}')
-                    
                     getai_response()
-    
+                    
+#-- Clears all user metrics     
 def clear_everything() -> None:
     st.session_state.user_weight = ''
     st.session_state.user_height_in_CM = ''
@@ -175,15 +187,14 @@ def clear_everything() -> None:
     st.session_state.user_BMI = ''
     st.session_state.user_BMR = ''
     st.session_state.user_TDEE = ''
+    st.session_state.user_goal = ''
 
+#-- This function send s request to AI, it submits user metrics and requests a summary based on teh user metrics
 def getai_response() -> None:
-
     genai.configure(api_key='AIzaSyBbUEkAOeey7Lq68yswWbb8oCSAHFZh73Q')
-
     model = genai.GenerativeModel('models/gemini-pro')
-
-    result = model.generate_content(f'give me a small sumary based on the users BMI{st.session_state.user_BMI}, BMR{st.session_state.user_BMR} and TDEE{st.session_state.user_TDEE}')
-
+    result = model.generate_content(f'give me a small sumary/advice based on the users BMI{st.session_state.user_BMI}, BMR{st.session_state.user_BMR} and TDEE{st.session_state.user_TDEE}, the users goal is {st.session_state.user_goal}')
+    
     st.write(result.text)
     
     

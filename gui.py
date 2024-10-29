@@ -22,7 +22,6 @@ def read_BMI_txt(starting_line:int, end_line:int=None) -> Any:
             if starting_line <= i <= end_line :
                 st.write(line)
 
-
 #%% Info expander
 def info_expander() -> None:
     left_drop_down, right_drop_down  = st.columns([4,4])
