@@ -1,5 +1,6 @@
 import streamlit as st
 import google.generativeai as genai
+
 class Calc:
     def __init__(self):
         pass
@@ -68,7 +69,7 @@ class Calc:
 
     def check_goal(self) -> None:
         try:        
-            user_goal:str = st.selectbox('Goal', ['Weight loss', 'Weight gain'])        
+            user_goal:str = st.selectbox('Goal', ['Weight loss', 'Weight gain', 'Muscle gain', ])        
             
             if user_goal.lower() == 'Weight loss' or user_goal.lower() == 'Weight gain':
                 st.session_state.user_gender = 'Weight loss'
@@ -197,6 +198,7 @@ def getai_response() -> None:
     
     st.write(result.text)
     
-    
+ 
+test = st.button(label='test button', key='test_btn')   
 clear_everything()                   
 display_sections()
