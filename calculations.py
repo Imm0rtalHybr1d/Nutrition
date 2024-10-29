@@ -1,6 +1,5 @@
 import streamlit as st
-import time
-
+import google.generativeai as genai
 class Calc:
     def __init__(self):
         pass
@@ -8,18 +7,17 @@ class Calc:
     def check_weight(self) -> None:
     # ensure user enters a float value for weight
         try:
-            user_weight:float = float(st.text_input(label='Enter your weight in kg:'))
+            user_weight:float = float(st.text_input(label='Enter your weight in kg:', placeholder='e.g 50'))
             st.session_state.user_weight  = user_weight
-        except ValueError as e:
+        except ValueError:
             st.session_state.user_weight  = '' 
-            
         
     def check_height(self) -> None:
         try:
             user_height:float = float(st.text_input(label='Enter your height in cm:'))
             st.session_state.user_height_in_CM = user_height
              
-        except Exception as e:
+        except Exception :
             st.session_state.user_height_in_CM = ''
     
     def check_age(self) -> None:
@@ -99,6 +97,7 @@ class Calc:
           
 def user_data_form() -> bool:
     user_metrics_form = st.form(key='User Metrics Form', clear_on_submit=False)
+    
     mycalc: Calc = Calc()     
          
     with user_metrics_form:
@@ -123,19 +122,70 @@ def user_data_form() -> bool:
             else:
                 st.success(body='Data submitted')
                 return True
-                # st.write(st.session_state.user_BMI)
-                # st.write(st.session_state.user_BMR)
-                # st.write(st.session_state.user_TDEE)
-                
-expander = st.expander(label='Calcualte your BMI, BMR & TDEE', expanded=True)
-with expander:
-    left_col, right_col = st.columns(2)
-    # user_data_form()
-    with left_col:
-        if user_data_form() == True:
+
+def display_sections() -> None:                
+    expander = st.expander(label='Calcualte your BMI, BMR & TDEE', expanded=True )
+    with expander:
+        left_col, right_col = st.columns(2)
+        
+        with left_col:
+            user_data_form()
             
-            st.write(st.session_state.user_BMI)
-            st.write(st.session_state.user_BMR)
-            st.write(st.session_state.user_TDEE)
+        with right_col:
+            BMI_present: bool = False
+            BMR_present: bool = False
+            TDEE_present: bool = False
+            
+            # Check if BMI exists
+            if st.session_state.get('user_BMI', None):
+                BMI_present = True
+            else:
+                st.write('')
+
+            # Check if BMR exists
+            if st.session_state.get('user_BMR', None):
+                BMR_present = True
+            else:
+                st.write('')
+
+            # Check if TDEE exists
+            if st.session_state.get('user_TDEE', None):
+                TDEE_present = True
+            else:
+                st.write('')
+
+            #-- Ensuring user metrics are present before displaying data           
+            present_list: list = [BMI_present,BMR_present,TDEE_present]            
+            if all(present_list):
+                with st.container(border=True):
+                    st.markdown('#### Insights')
+                    st.markdown('*----------------------------------------------------------*')
+                    st.markdown(f'###### BMI: {st.session_state.user_BMI}')
+                    st.markdown(f'###### BMR (Basal Metabolic Rate): {round(st.session_state.user_BMR)}')
+                    st.markdown(f'###### TDEE (Total Daily Energy Expenditure): {round(st.session_state.user_TDEE)}')
+                    
+                    getai_response()
+    
+def clear_everything() -> None:
+    st.session_state.user_weight = ''
+    st.session_state.user_height_in_CM = ''
+    st.session_state.user_age = ''
+    st.session_state.user_gender = ''
+    st.session_state.activity_level = ''
+    st.session_state.user_BMI = ''
+    st.session_state.user_BMR = ''
+    st.session_state.user_TDEE = ''
+
+def getai_response() -> None:
+
+    genai.configure(api_key='AIzaSyBbUEkAOeey7Lq68yswWbb8oCSAHFZh73Q')
+
+    model = genai.GenerativeModel('models/gemini-pro')
+
+    result = model.generate_content(f'give me a small sumary based on the users BMI{st.session_state.user_BMI}, BMR{st.session_state.user_BMR} and TDEE{st.session_state.user_TDEE}')
+
+    st.write(result.text)
     
     
+clear_everything()                   
+display_sections()

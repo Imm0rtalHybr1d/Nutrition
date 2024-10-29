@@ -11,16 +11,15 @@ import pathlib
 def load_css(filepath:str) -> None:
     with open(filepath) as f:
         st.html(f'<style>{f.read()}</style>')
-        
 css_path = pathlib.Path('assets/style.css')
 load_css(css_path)
+
 
 #%% This function reads lines from a text file containing info on BMI, BMR, and TDEE
 def read_BMI_txt(starting_line:int, end_line:int=None) -> Any:
     with open(fr"BMI.txt", "r") as file:
-        
         for i, line in enumerate(file):  
-            if starting_line <= i <= end_line  :
+            if starting_line <= i <= end_line :
                 st.write(line)
 
 

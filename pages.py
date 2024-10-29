@@ -5,12 +5,14 @@ import streamlit as st
 Info_page = st.Page(
     page='gui.py',
     title='Info',
-    default=True
+    default=True,
+    icon=':material/info:'
 )
 
 calculation_page = st.Page(
     page='calculations.py',
-    title= 'Calculate'
+    title= 'Calculate',
+    icon=':material/functions:'
 )
 
 # -- Navigation setup
