@@ -1,0 +1,17 @@
+The Body Mass Index (BMI) formula is based on average weight for your height. People come in all shapes and sizes, just think about the football players at your school growing up. Some of them are not especially tall, yet they weigh more because they have lots of muscle. BMI has frustrated weight lifters for many years. Just understand that the more muscle you have, the more that the BMI scale with skew high. BMI was designed to be good for population groups as a whole, not individuals.
+
+People who actually track their calories say my calculator is extremely accurate, and it's a big reason why it's so popular. In numbers, the calorie estimations should be within ~10% IF you are honest about your activity level. If someone needs about 2,300 calories per day, the calculator could be off by 230ish calories. Over the course of 1 month, this is equal to ~7,000 calories (2lbs). Most people, however, overestimate how much they work out (ie they choose 'Heavy Exercise' when they should choose 'Light Exercise'). You should use the TDEE calculator as a reasonable estimate to start with, and adjust your calories up or down based on your weight change over time.
+
+
+
+
+
+Nutrition calculator results
+------------------------------------------------------------------------
+BMI (Body Mass Index)	-	Weight (kg) divided by height squared (m)
+BMR (Basal Metabolic Rate)	-	Harris/Benedict Equation
+Weight maintenance level	-	BMR (Harris/Benedict) × Activity Level
+
+PA values for different physical activity	-	BMR (Katch-McArdle) × Adjusted Activity Level
+DRI for Protein (body weight)	-	DRI as a function of body weight
+Protein recommendation based on lean body mass	-	More accurate than DRI if LBM is known
