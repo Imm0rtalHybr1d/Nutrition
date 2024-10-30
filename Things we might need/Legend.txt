@@ -1,9 +1,0 @@
-Nutrition calculator results
-------------------------------------------------------------------------
-BMI (Body Mass Index)	-	Weight (kg) divided by height squared (m)
-BMR (Basal Metabolic Rate)	-	Harris/Benedict Equation
-Weight maintenance level	-	BMR (Harris/Benedict) × Activity Level
-
-PA values for different physical activity	-	BMR (Katch-McArdle) × Adjusted Activity Level
-DRI for Protein (body weight)	-	DRI as a function of body weight
-Protein recommendation based on lean body mass	-	More accurate than DRI if LBM is known
